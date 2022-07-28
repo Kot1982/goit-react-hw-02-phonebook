@@ -1,4 +1,6 @@
 import React from 'react';
+import ContactForm from './ContactForm/ContactForm';
+import { ContactList } from './ContactList/ContactList';
 
 class App extends React.Component {
   state = {
@@ -6,32 +8,35 @@ class App extends React.Component {
     name: '',
   };
 
-  handleNameChange = event => {
-    // console.log(event.currentTarget.value)
-    this.setState({name: event.currentTarget.value})
-  }
+addContact = ({ name, number }) => {
+    const contact = {
+      name,
+      number,
+    };
+
+  this.setState(({ contacts }) => {
+      console.log(contacts)
+      // if (
+      //   contacts.some(
+      //     contact => contact.name.toLowerCase() === name.toLowerCase()
+      //   )
+      // ) {
+      //   return alert(`${name} is already in contacts!`);
+      // }
+      return {
+        contacts: [contact, ...contacts],
+      };
+    });
+  };
 
   render() {
     return (
       <>
         <div>
           <h1>Phonebook</h1>
-          <form>
-            Name
-            <label>
-              <input
-                type="text"
-                name="name"
-                value={this.state.name}
-                onChange={this.handleNameChange}
-                pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-                title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-                required
-              ></input>
-            </label>
-            <button type='submit'>Add contact</button>
-          </form>
+          <ContactForm onSubmit={this.addContact} />
           <h2>Contacts</h2>
+          <ContactList contacts={this.state.contacts}/>
         </div>
       </>
     );
