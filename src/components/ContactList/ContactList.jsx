@@ -2,9 +2,9 @@ export const ContactList = ({ contacts }) => {
     return (
         
         <ul>
-            {contacts.map(({ name, number }) => {
+            {contacts.map(({ name, number, id }) => {
                 return (
-                    <li>
+                    <li key={id}>
                         <p>{name}: {number}</p>
                     </li>
                 )
