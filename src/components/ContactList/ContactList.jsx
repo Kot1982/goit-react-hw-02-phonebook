@@ -1,19 +1,19 @@
 import PropTypes from 'prop-types';
-import { Item, Button } from './ContactList.styled';
+import { ContactItem } from 'components/ContactItem/ContactItem';
+import { nanoid } from 'nanoid';
 
 export const ContactList = ({ contacts, onDeleteContact }) => {
   return (
     <ul>
       {contacts.map(({ name, number, id }) => {
         return (
-          <Item key={id}>
-            <p>
-              {name}: {number}
-            </p>
-            <Button type="button" onClick={() => onDeleteContact(id)}>
-              Delete
-            </Button>
-          </Item>
+          <ContactItem
+            key={nanoid()}
+            name={name}
+            number={number}
+            id={id}
+            onDeleteContact={onDeleteContact}
+          />
         );
       })}
     </ul>

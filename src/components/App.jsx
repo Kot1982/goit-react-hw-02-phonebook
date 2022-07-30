@@ -23,7 +23,7 @@ class App extends React.Component {
     };
 
     this.setState(({ contacts }) => {
-      console.log(contacts);
+      
       if (
         contacts.find(
           contact => contact.name.toLowerCase() === name.toLowerCase()
