@@ -26,13 +26,13 @@ addContact = ({ name, number }) => {
 
   this.setState(({ contacts }) => {
       console.log(contacts)
-      // if (
-      //   contacts.some(
-      //     contact => contact.name.toLowerCase() === name.toLowerCase()
-      //   )
-      // ) {
-      //   return alert(`${name} is already in contacts!`);
-      // }
+      if (
+        contacts.find(
+          contact => contact.name.toLowerCase() === name.toLowerCase()
+        )
+      ) {
+        return alert(`${name} is already in contacts!`);
+      }
       return {
         contacts: [contact, ...contacts],
       };
@@ -52,6 +52,12 @@ addContact = ({ name, number }) => {
     );
   };
 
+  DeleteContact = contactId => {
+    this.setState(prevState => ({
+      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
+    }));
+  };
+
   render() {
     return (
       <>
@@ -60,7 +66,7 @@ addContact = ({ name, number }) => {
           <ContactForm onSubmit={this.addContact} />
           <h2>Contacts</h2>
           <Filter filter={this.state.filter} onChange={this.onChangeFilter} />
-          <ContactList contacts={this.currentContacts()}/>
+          <ContactList contacts={this.currentContacts()} onDeleteContact={this.DeleteContact} />
         </div>
       </>
     );
